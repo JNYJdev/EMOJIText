@@ -13,6 +13,10 @@ class FirstViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        
+        ShowEmojiView.showEmojiText("[/f01][/f01]123123 231231231[/f01][/f02][/f03][/f04][/f01][/f01]",
+            superView: self.view);
+        
     }
 
     override func didReceiveMemoryWarning() {
