@@ -17,6 +17,8 @@
 		4C57884B1AD7ADDE00FCB6DB /* ShowEmojiView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C57884A1AD7ADDE00FCB6DB /* ShowEmojiView.m */; };
 		4C57884F1AD7AE8E00FCB6DB /* JNYJEmojiText.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C57884E1AD7AE8E00FCB6DB /* JNYJEmojiText.m */; };
 		4C5788D81AD7C08700FCB6DB /* Emoji.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4C5788D71AD7C08700FCB6DB /* Emoji.bundle */; };
+		4C70B5FE1ADB8F3600656746 /* JNYJEmojiRegexKitLite.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C70B5FD1ADB8F3600656746 /* JNYJEmojiRegexKitLite.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		4C70B6001ADB929B00656746 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C70B5FF1ADB929B00656746 /* libicucore.dylib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +49,9 @@
 		4C57884D1AD7AE8E00FCB6DB /* JNYJEmojiText.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JNYJEmojiText.h; sourceTree = "<group>"; };
 		4C57884E1AD7AE8E00FCB6DB /* JNYJEmojiText.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JNYJEmojiText.m; sourceTree = "<group>"; };
 		4C5788D71AD7C08700FCB6DB /* Emoji.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Emoji.bundle; sourceTree = "<group>"; };
+		4C70B5FC1ADB8F3600656746 /* JNYJEmojiRegexKitLite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JNYJEmojiRegexKitLite.h; sourceTree = "<group>"; };
+		4C70B5FD1ADB8F3600656746 /* JNYJEmojiRegexKitLite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JNYJEmojiRegexKitLite.m; sourceTree = "<group>"; };
+		4C70B5FF1ADB929B00656746 /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +59,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4C70B6001ADB929B00656746 /* libicucore.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -70,6 +76,7 @@
 		4C5788181AD7AD5100FCB6DB = {
 			isa = PBXGroup;
 			children = (
+				4C70B5FF1ADB929B00656746 /* libicucore.dylib */,
 				4C5788231AD7AD5100FCB6DB /* JNYJEmojiText */,
 				4C57883B1AD7AD5100FCB6DB /* JNYJEmojiTextTests */,
 				4C5788221AD7AD5100FCB6DB /* Products */,
@@ -131,11 +138,21 @@
 				4C5788491AD7ADDE00FCB6DB /* ShowEmojiView.h */,
 				4C57884A1AD7ADDE00FCB6DB /* ShowEmojiView.m */,
 				4C5788481AD7ADDD00FCB6DB /* JNYJEmojiText-Bridging-Header.h */,
+				4C70B5FB1ADB8F3600656746 /* RegexKitLite-4.0 */,
 				4C5788D71AD7C08700FCB6DB /* Emoji.bundle */,
 				4C57884D1AD7AE8E00FCB6DB /* JNYJEmojiText.h */,
 				4C57884E1AD7AE8E00FCB6DB /* JNYJEmojiText.m */,
 			);
 			name = Views;
+			sourceTree = "<group>";
+		};
+		4C70B5FB1ADB8F3600656746 /* RegexKitLite-4.0 */ = {
+			isa = PBXGroup;
+			children = (
+				4C70B5FC1ADB8F3600656746 /* JNYJEmojiRegexKitLite.h */,
+				4C70B5FD1ADB8F3600656746 /* JNYJEmojiRegexKitLite.m */,
+			);
+			path = "RegexKitLite-4.0";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -239,6 +256,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4C70B5FE1ADB8F3600656746 /* JNYJEmojiRegexKitLite.m in Sources */,
 				4C57882B1AD7AD5100FCB6DB /* SecondViewController.swift in Sources */,
 				4C5788271AD7AD5100FCB6DB /* AppDelegate.swift in Sources */,
 				4C57884B1AD7ADDE00FCB6DB /* ShowEmojiView.m in Sources */,
@@ -440,6 +458,7 @@
 				4C5788441AD7AD5100FCB6DB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		4C5788451AD7AD5100FCB6DB /* Build configuration list for PBXNativeTarget "JNYJEmojiTextTests" */ = {
 			isa = XCConfigurationList;
@@ -448,6 +467,7 @@
 				4C5788471AD7AD5100FCB6DB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
