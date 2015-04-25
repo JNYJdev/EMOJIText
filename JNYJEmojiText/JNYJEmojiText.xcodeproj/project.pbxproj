@@ -19,6 +19,7 @@
 		4C5788D81AD7C08700FCB6DB /* Emoji.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4C5788D71AD7C08700FCB6DB /* Emoji.bundle */; };
 		4C70B5FE1ADB8F3600656746 /* JNYJEmojiRegexKitLite.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C70B5FD1ADB8F3600656746 /* JNYJEmojiRegexKitLite.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		4C70B6001ADB929B00656746 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C70B5FF1ADB929B00656746 /* libicucore.dylib */; };
+		4CCFAF2B1AE8A02800505DAE /* JNYJButtonText.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CCFAF2A1AE8A02800505DAE /* JNYJButtonText.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,6 +53,8 @@
 		4C70B5FC1ADB8F3600656746 /* JNYJEmojiRegexKitLite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JNYJEmojiRegexKitLite.h; sourceTree = "<group>"; };
 		4C70B5FD1ADB8F3600656746 /* JNYJEmojiRegexKitLite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JNYJEmojiRegexKitLite.m; sourceTree = "<group>"; };
 		4C70B5FF1ADB929B00656746 /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
+		4CCFAF291AE8A02800505DAE /* JNYJButtonText.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JNYJButtonText.h; sourceTree = "<group>"; };
+		4CCFAF2A1AE8A02800505DAE /* JNYJButtonText.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JNYJButtonText.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -142,6 +145,8 @@
 				4C5788D71AD7C08700FCB6DB /* Emoji.bundle */,
 				4C57884D1AD7AE8E00FCB6DB /* JNYJEmojiText.h */,
 				4C57884E1AD7AE8E00FCB6DB /* JNYJEmojiText.m */,
+				4CCFAF291AE8A02800505DAE /* JNYJButtonText.h */,
+				4CCFAF2A1AE8A02800505DAE /* JNYJButtonText.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -262,6 +267,7 @@
 				4C57884B1AD7ADDE00FCB6DB /* ShowEmojiView.m in Sources */,
 				4C57884F1AD7AE8E00FCB6DB /* JNYJEmojiText.m in Sources */,
 				4C5788291AD7AD5100FCB6DB /* FirstViewController.swift in Sources */,
+				4CCFAF2B1AE8A02800505DAE /* JNYJButtonText.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

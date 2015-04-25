@@ -10,6 +10,6 @@
 
 @interface ShowEmojiView : UIView
 
-+(void)showEmojiText:(NSString *)text superView:(UIView *)superView;
++(void)showEmojiText:(NSString *)text font:(UIFont *)aFont superView:(UIView *)superView;
 
 @end

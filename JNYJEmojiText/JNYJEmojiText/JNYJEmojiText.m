@@ -28,17 +28,17 @@
 
 @implementation JNYJEmojiText
 
-
-+(void)showEmojiText:(NSString *)text superView:(UIView *)superView{
+#pragma mark Public
++(void)showEmojiText:(NSString *)text font:(UIFont*)aFont superView:(UIView *)superView{
     if (text && [text isKindOfClass:[NSString class]] && ![text isEqualToString:@""]) {
         //
         CGFloat width_MAX = superView.frame.size.width;
-        UIView *view_ = [JNYJEmojiText assembleMessageAtIndex:text width:(width_MAX)];
+        UIView *view_ = [JNYJEmojiText assembleMessageAtIndex:text font:aFont width:(width_MAX)];
         CGRect rect_ = view_.frame;
         rect_.origin.x = 0;
         rect_.origin.y = 0;
         [view_ setFrame:rect_];
-        [view_ setBackgroundColor:[UIColor whiteColor]];
+        [view_ setBackgroundColor:[UIColor clearColor]];
         [superView addSubview:view_];
         //
         rect_ = superView.frame;
@@ -49,6 +49,29 @@
         
     }
 }
++(UIView *)getEmojiTextView:(NSString *)text font:(UIFont *)aFont width:(CGFloat)width{
+    if (text && [text isKindOfClass:[NSString class]] && ![text isEqualToString:@""]) {
+        //
+        CGFloat width_MAX = width;
+        UIView *view_ = [JNYJEmojiText assembleMessageAtIndex:text font:aFont width:(width_MAX)];
+        CGRect rect_ = view_.frame;
+        rect_.origin.x = 0;
+        rect_.origin.y = 0;
+        [view_ setFrame:rect_];
+        [view_ setBackgroundColor:[UIColor clearColor]];
+        return view_;
+    }
+    return [[UIView alloc] initWithFrame:CGRectMake(0,0,0,0)];
+}
+
++(NSArray *)getEmojiTextViews:(NSArray *)texts font:(UIFont *)aFont width:(CGFloat)width{
+    NSMutableArray *array_ = [NSMutableArray array];
+    for (NSInteger i = 0; i<[texts count]; i++) {
+        [array_ addObject:[self getEmojiTextView:[texts objectAtIndex:i] font:aFont width:width]];
+    }
+    return array_;
+}
+#pragma mark private
 //图文混排
 
 +(UIImage *)getEmoji_7QImage:(NSString *)fileName{
@@ -123,7 +146,7 @@
 //}
 
 
-+(UIView *)assembleMessageAtIndex : (NSString *) message width:(CGFloat)widthMAX
++(UIView *)assembleMessageAtIndex:(NSString *)message font:(UIFont *)aFont width:(CGFloat)widthMAX
 {
     CGFloat width = widthMAX-4;
     //11111
@@ -132,8 +155,9 @@
     //22222
     [self getImageRange_RegexString:message to:array];
     UIView *returnView = [[UIView alloc] initWithFrame:CGRectZero];
+    [returnView setBackgroundColor:[UIColor clearColor]];
     NSArray *data = array;
-    UIFont *fon = [UIFont systemFontOfSize:13.0f];
+    UIFont *fon = aFont;
     CGFloat upX = 0;
     CGFloat upY = 0;
     CGFloat X = 0;
@@ -153,6 +177,7 @@
                 
                 NSString *imageName=[NSString stringWithFormat:@"%@",str];
                 UIImageView *img=[[UIImageView alloc] initWithImage:[self getEmoji_7QImage:imageName]];
+                [img setBackgroundColor:[UIColor clearColor]];
                 img.frame = CGRectMake(upX, upY, KFacialSizeWidth, KFacialSizeHeight);
                 [returnView addSubview:img];
                 upX=KFacialSizeWidth+upX;

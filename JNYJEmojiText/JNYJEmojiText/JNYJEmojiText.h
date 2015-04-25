@@ -12,5 +12,7 @@
 
 @interface JNYJEmojiText : UIView
 
-+(void)showEmojiText:(NSString *)text superView:(UIView *)superView;
++(void)showEmojiText:(NSString *)text font:(UIFont*)aFont superView:(UIView *)superView;
++(UIView *)getEmojiTextView:(NSString *)text font:(UIFont*)aFont width:(CGFloat)width;
++(NSArray *)getEmojiTextViews:(NSArray *)texts font:(UIFont*)aFont width:(CGFloat)width;
 @end
