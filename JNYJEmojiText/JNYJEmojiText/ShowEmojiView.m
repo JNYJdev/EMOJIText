@@ -48,21 +48,24 @@
     [superView setBackgroundColor:[UIColor redColor]];
     
     //
-    [[JNYJButtonText sharedInstance] setFloat_text_height:18.0f];
-    [[JNYJButtonText sharedInstance] setFloat_text_width:superView.frame.size.width];
+    [[JNYJButtonText sharedInstance] setCallback_delegate:[JNYJButtonText sharedInstance]];
+    [[JNYJButtonText sharedInstance] setFloat_text_height:24.0f];
+    [[JNYJButtonText sharedInstance] setFloat_text_width:superView.frame.size.width-20];
     [[JNYJButtonText sharedInstance] setFont:aFont];
-    [[JNYJButtonText sharedInstance] setFontButton:aFont];
+    [[JNYJButtonText sharedInstance] setFontButton:[UIFont fontWithName:@"Helvetica" size:18]];
     
     [[JNYJButtonText sharedInstance] setColorText:[UIColor redColor]];
     [[JNYJButtonText sharedInstance] setColorTextButton:[UIColor blueColor]];
     
-    view_ = [[JNYJButtonText sharedInstance] getButtonTextView:@"dfsgsdfgsdfg<a href='u/1090538' target='_blank'>Danniel</a>thsdfgsdfgdf<a href='v/2002030' target='_blank'>fghdghdfg</a>gfhdsthrtyr"];
+    view_ = [[JNYJButtonText sharedInstance] getButtonTextView:@"dfsgsdfgsdfg<a href='u/1090538' target='_blank'>穿越到未来的时间旅行时刻都在发生穿越到未来的时间旅行时刻都在发生穿越到未来的时间旅行时刻都在发生穿越到未来的时间旅行时刻都在发生</a>穿越<a href='v/2002030' target='_blank'>fghdghdfgfghdghdfgfghdghdfgfghdghdfgfghdghdfgfghdghdfgfghdghdfgfghdghdfgfghdghdfgfghdghdfg</a>gfhdsthrtyr"
+             indexPath:[NSIndexPath indexPathForRow:2 inSection:2]];
     [superView addSubview:view_];
     
     
     
     rect_ = superView.frame;
     rect_s = view_.frame;
+    rect_s.origin.x = 5;
     rect_s.origin.y = rect_.size.height;
     [view_ setFrame:rect_s];
     [superView addSubview:view_];

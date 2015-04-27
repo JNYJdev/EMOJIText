@@ -38,7 +38,7 @@
 @end
 
 
-@interface JNYJButtonText : NSObject
+@interface JNYJButtonText : NSObject<JNYJButtonTextDelegate>
 
 @property(nonatomic,assign)CGFloat  float_text_height;
 @property(nonatomic,assign)CGFloat  float_text_width;
@@ -55,7 +55,7 @@
 
 -(NSArray *)convertMessages:(NSString *)text;
 
--(UIView *)getButtonTextView:(NSString *)text;
+-(UIView *)getButtonTextView:(NSString *)text indexPath:(NSIndexPath *)indexPath;
 
 -(UIView *)assembleMessages;
 @end

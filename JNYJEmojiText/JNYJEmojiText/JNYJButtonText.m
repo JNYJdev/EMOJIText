@@ -11,6 +11,11 @@
 #define KFacialSizeWidth  18
 #define KFacialSizeHeight 18
 
+#define StringFormat_label_indexPath @"%ld_indexPath_%ld"
+#define Comp_label_IndexPath @"_indexPath_"
+
+#define Tag_label_indexPath 150427
+
 @implementation JNYJButtonText
 
 
@@ -23,8 +28,8 @@
         _sharedClient.float_text_height = 18.0f;
         _sharedClient.float_text_width = 320-20;
         
-        [_sharedClient setFont:[UIFont fontWithName:@"" size:11]];
-        [_sharedClient setFontButton:[UIFont fontWithName:@"" size:11]];
+        [_sharedClient setFont:[UIFont fontWithName:@"Helvetica" size:11]];
+        [_sharedClient setFontButton:[UIFont fontWithName:@"Helvetica" size:11]];
         
         [_sharedClient setColorText:[UIColor blackColor]];
         [_sharedClient setColorTextButton:[UIColor blackColor]];
@@ -60,9 +65,9 @@
     if (range.length>0 && range1.length>0) {
         if (range.location > 0) {
             NSString *string_ =[NSString stringWithFormat:@"%@",[message substringWithRange:
-                                      NSMakeRange(range.location+int_start_count,
-                                                  range1.location-range.location-range.length)]];
-
+                                                                 NSMakeRange(range.location+int_start_count,
+                                                                             range1.location-range.location-range.length)]];
+            
             NSArray *array_ = [string_ componentsSeparatedByString:@"/"];
             if (array_ && [array_ count]>=2) {
                 string_  = [array_ objectAtIndex:0];
@@ -98,7 +103,7 @@
 -(void)detectMessage:(NSString *)message to:(NSMutableArray *)formatMessage{
     //
     NSRange range=[message rangeOfString: @"<a"];//2
-//    NSUInteger int_start_count = 2;
+    //    NSUInteger int_start_count = 2;
     NSRange range1=[message rangeOfString: @"</a>"];//4
     NSUInteger int_end_count = 4;
     //判断当前字符串是否还有表情的标志。
@@ -112,8 +117,8 @@
             
             //
             string_ =[NSString stringWithFormat:@"%@",[message substringWithRange:
-                                      NSMakeRange(range.location,
-                                                  range1.location+int_end_count-range.location)]];
+                                                       NSMakeRange(range.location,
+                                                                   range1.location+int_end_count-range.location)]];
             
             [self initHrefLink:string_ to:formatMessage];
             
@@ -121,8 +126,8 @@
             [self detectMessage:str to:formatMessage];
         }else {
             NSString *string_ =[NSString stringWithFormat:@"%@",[message substringWithRange:
-                               NSMakeRange(range.location,
-                                           range1.location+int_end_count-range.location)]];
+                                                                 NSMakeRange(range.location,
+                                                                             range1.location+int_end_count-range.location)]];
             //排除文字是“”的
             if (![string_ isEqualToString:@""]) {
                 [self initHrefLink:string_ to:formatMessage];
@@ -132,7 +137,7 @@
                 return;
             }
         }
-
+        
     } else if (message != nil) {
         [self initText:message to:formatMessage];
     }
@@ -143,12 +148,23 @@
     return array_;
 }
 //
--(UIView *)getButtonTextView:(NSString *)text{
+-(UIView *)getButtonTextView:(NSString *)text indexPath:(NSIndexPath *)indexPath{
     NSArray *array_ = [self convertMessages:text];
     self.arrayTexts = array_;
     if (array_ && [array_ isKindOfClass:[NSArray class]]){
         //
         UIView *view_ = [self assembleMessages];
+        //
+        UILabel *label_ = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
+        NSString *string_ = [NSString stringWithFormat:
+                             StringFormat_label_indexPath,
+                             (long)indexPath.row,
+                             (long)indexPath.section];
+        [label_ setText:string_];
+        [label_ setHidden:YES];
+        [label_ setTag:Tag_label_indexPath];
+        [view_ addSubview:label_];
+        //
         CGRect rect_ = view_.frame;
         rect_.origin.x = 0;
         rect_.origin.y = 0;
@@ -165,12 +181,11 @@
     }else{
         return [[UIView alloc] initWithFrame:CGRectMake(0,0,0,0)];
     }
-    CGFloat width = self.float_text_width-2;
+    CGFloat width = (self.float_text_width-6);
     //
     UIView *returnView = [[UIView alloc] initWithFrame:CGRectZero];
     [returnView setBackgroundColor:[UIColor clearColor]];
     NSArray *data = self.arrayTexts;
-    UIFont *fon = self.font;
     CGFloat upX = 0;
     CGFloat upY = 0;
     CGFloat X = 0;
@@ -200,7 +215,9 @@
                 CGFloat float_text = 0.0f;
                 
                 string_ = [NSString stringWithFormat:@"%@",[dic_ valueForKey:KEY_text_type]];
+                BOOL isButton = NO;
                 if (string_ && [string_ isEqualToString:EnumButtonTextType_button]) {
+                    isButton = YES;
                     if (int_index_button >=0) {
                         int_index_button++;
                     }else{
@@ -208,13 +225,18 @@
                     }
                 }
                 //
+                UIFont *font_ = self.font;
+                if (isButton) {
+                    font_ = self.fontButton;
+                }
+                
                 for (int j = 0; j < [string_title length]; j++) {
                     NSString *string_temp = [string_title substringWithRange:NSMakeRange(j, 1)];
                     string_text = [NSString stringWithFormat:@"%@%@",string_text,string_temp];
                     
                     //                    CGSize size=[temp sizeWithFont:fon constrainedToSize:CGSizeMake(width, 40)];
                     
-                    NSDictionary *attribute = [NSDictionary dictionaryWithObjectsAndKeys:fon,NSFontAttributeName, nil];
+                    NSDictionary *attribute = [NSDictionary dictionaryWithObjectsAndKeys:font_,NSFontAttributeName, nil];
                     CGRect rect_ = [string_text boundingRectWithSize:CGSizeMake(width, 40)
                                                              options:NSStringDrawingTruncatesLastVisibleLine
                                                           attributes:attribute context:nil];
@@ -224,7 +246,7 @@
                     //                    NSLog(@"(String)--->%@(%f:%f)",string_text,width,float_text);
                     
                     
-                    if (float_text >= (width-2))
+                    if (float_text >= (width-8))
                     {
                         CGRect rect_ = CGRectMake(upX,upY,size.width,size.height);
                         if (string_ && [string_ isEqualToString:EnumButtonTextType_button]) {
@@ -232,7 +254,7 @@
                             UIButton *button_ = [[UIButton alloc] initWithFrame:rect_];
                             button_.backgroundColor = [UIColor whiteColor];
                             [button_ setTitle:string_text forState:UIControlStateNormal];
-                            [button_.titleLabel setFont:self.fontButton];
+                            [button_.titleLabel setFont:font_];
                             [button_ setTitleColor:self.colorTextButton forState:UIControlStateNormal];
                             [returnView addSubview:button_];
                             [button_ setShowsTouchWhenHighlighted:YES];
@@ -242,7 +264,7 @@
                         }else if (string_ && [string_ isEqualToString:EnumButtonTextType_label]) {
                             //
                             UILabel *la = [[UILabel alloc] initWithFrame:rect_];
-                            la.font = self.font;
+                            la.font = font_;
                             la.text = string_text;
                             [la setTextColor:self.colorText];
                             la.backgroundColor = [UIColor clearColor];
@@ -269,7 +291,7 @@
                             UIButton *button_ = [[UIButton alloc] initWithFrame:rect_];
                             button_.backgroundColor = [UIColor whiteColor];
                             [button_ setTitle:string_text forState:UIControlStateNormal];
-                            [button_.titleLabel setFont:self.fontButton];
+                            [button_.titleLabel setFont:font_];
                             [button_ setTitleColor:self.colorTextButton forState:UIControlStateNormal];
                             [returnView addSubview:button_];
                             [button_ setShowsTouchWhenHighlighted:YES];
@@ -280,7 +302,7 @@
                         }else if (string_ && [string_ isEqualToString:EnumButtonTextType_label]) {
                             //
                             UILabel *la = [[UILabel alloc] initWithFrame:rect_];
-                            la.font = self.font;
+                            la.font = font_;
                             la.text = string_text;
                             [la setTextColor:self.colorText];
                             la.backgroundColor = [UIColor clearColor];
@@ -301,17 +323,17 @@
                         X = upX;
                     }
                 }
-//                NSString *imageName=[NSString stringWithFormat:@"%@",str];
-//                UIImageView *img=[[UIImageView alloc] initWithImage:[self getEmoji_7QImage:imageName]];
-//                [img setBackgroundColor:[UIColor clearColor]];
-//                img.frame = CGRectMake(upX, upY, KFacialSizeWidth, KFacialSizeHeight);
-//                [returnView addSubview:img];
-//                upX=KFacialSizeWidth+upX;
-//                if (X<width){
-//                    X = upX;
-//                }
-//                //                NSLog(@"(image)---->%@(%f:%f)",str,width,upX);
-//
+                //                NSString *imageName=[NSString stringWithFormat:@"%@",str];
+                //                UIImageView *img=[[UIImageView alloc] initWithImage:[self getEmoji_7QImage:imageName]];
+                //                [img setBackgroundColor:[UIColor clearColor]];
+                //                img.frame = CGRectMake(upX, upY, KFacialSizeWidth, KFacialSizeHeight);
+                //                [returnView addSubview:img];
+                //                upX=KFacialSizeWidth+upX;
+                //                if (X<width){
+                //                    X = upX;
+                //                }
+                //                //                NSLog(@"(image)---->%@(%f:%f)",str,width,upX);
+                //
             } else {
                 //
             }
@@ -324,7 +346,28 @@
 
 -(void)event_click:(id)sender{
     if (self.callback_delegate && [self.callback_delegate respondsToSelector:@selector(callback_JNYJButtonText_buttonClick:)]) {
-        [self.callback_delegate callback_JNYJButtonText_buttonClick:sender];
+        UIButton *button_ = (UIButton *)sender;
+        if (button_ &&[button_ isKindOfClass:[UIButton class]]) {
+            NSMutableDictionary *dic_ = [NSMutableDictionary dictionary];
+            [dic_ setValue:[NSNumber numberWithInteger:button_.tag] forKey:@"ClickIndex"];
+            UIView *view_ = [button_ superview];
+            UILabel *label_ = (UILabel *)[view_ viewWithTag:Tag_label_indexPath];
+            if (label_ && [label_ isKindOfClass:[UILabel class]]) {
+                NSString *string_ = label_.text;
+                if (string_) {
+                    NSArray *array_ = [string_ componentsSeparatedByString:Comp_label_IndexPath];
+                    if (array_ && [array_ count]>=2) {
+                        NSIndexPath *indexPath_ = [NSIndexPath indexPathForRow:[([array_ objectAtIndex:0]) integerValue]
+                                                                     inSection:[([array_ objectAtIndex:1]) integerValue]];
+                        [dic_ setValue:indexPath_ forKey:@"IndexPath"];
+                        [self.callback_delegate callback_JNYJButtonText_buttonClick:dic_];
+                    }
+                }
+            }
+        }
     }
+}
+-(void)callback_JNYJButtonText_buttonClick:(id)sender{
+    NSLog(@"buttonClick:--\n\n%@\n\n",sender);
 }
 @end
